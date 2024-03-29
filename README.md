@@ -60,7 +60,7 @@ pgCheck/
 └── main.py
 ```
 
-- pgcheck/ - The main package for your application.
+- pgcheck/ - The main package for the application.
 - tests/ - Contains all unit tests.
 - data/ - Sample data or SQL queries for testing and benchmarking.
 - .env - Environment variables for database connection or other configurations.
