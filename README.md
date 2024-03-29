@@ -31,6 +31,42 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+## Project Structure
+
+```markdown
+pgCheck/
+├── pgcheck/
+│ ├── **init**.py
+│ ├── cli.py
+│ ├── connection.py
+│ ├── translator.py
+│ ├── performance.py
+│ ├── lexer.py
+│ ├── parser.py
+│ ├── utils.py
+│ └── types.py
+├── tests/
+│ ├── **init**.py
+│ ├── test_cli.py
+│ ├── test_connection.py
+│ ├── test_translator.py
+│ ├── test_performance.py
+│ ├── test_lexer.py
+│ └── test_parser.py
+├── data/
+│ └── sample_queries.sql
+├── .env
+├── requirements.txt
+└── main.py
+```
+
+- pgcheck/ - The main package for your application.
+- tests/ - Contains all unit tests.
+- data/ - Sample data or SQL queries for testing and benchmarking.
+- .env - Environment variables for database connection or other configurations.
+- requirements.txt - All the project dependencies.
+- main.py - The entry point of the application that invokes the CLI.
+
 ## Dependencies
 
 - Typer: For CLI
