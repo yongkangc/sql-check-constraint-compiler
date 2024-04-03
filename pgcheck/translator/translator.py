@@ -84,7 +84,6 @@ class Translator():
             
             if root:
                 self.execute_create_table(table_name, modified_statement)
-            
 
         constraint_columns = list(set(print_constraints.constraint_columns))
         
