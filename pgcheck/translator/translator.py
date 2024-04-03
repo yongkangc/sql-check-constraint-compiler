@@ -7,6 +7,7 @@ from pglast.stream import RawStream
 from pgcheck.parser.parser import PrintCheckConstraints, DeleteCheckConstraints
 from pgcheck.connection import perform_connection
 
+
 class Translator():
     def __init__(self):
         self.conn = None
@@ -15,7 +16,7 @@ class Translator():
         self.operator_mapping = {'>=': 'MTET', '>': 'MT',
                                  '<=': 'LTET', '<': 'LT',
                                  '=': 'ET'}
-        
+
     def connect_pg(self):
         self.conn = perform_connection()
 
@@ -24,7 +25,7 @@ class Translator():
         with self.conn.cursor() as cur:
             cur.execute(query)
             print(query)
-        
+
         self.conn.commit()
         self.conn.close()
 
@@ -58,10 +59,12 @@ class Translator():
         modified_statement = RawStream()(root)
 
         original_statement
-        self.execute_create_table(table_name+'_orig', original_statement.replace(table_name, table_name+'_orig'))
+        self.execute_create_table(
+            table_name+'_orig', original_statement.replace(table_name, table_name+'_orig'))
         self.execute_create_table(table_name, modified_statement)
 
-        self.translate_sql_template(table_name, constraint_statement, constraint_columns)
+        self.translate_sql_template(
+            table_name, constraint_statement, constraint_columns)
 
     def translate_sql_template(self, table_name, constraint_statement, constraint_columns):
 

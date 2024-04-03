@@ -13,9 +13,9 @@ def connect(database: str, username: str, password: str, host: str = 'localhost'
 
 
 @app.command()
-def translate(table: str = None, all: bool = False):
+def translate(sql: str):
     """Translate existing CHECK constraints into triggers and stored functions."""
-    perform_translation(table, all)
+    perform_translation(sql)
 
 
 @app.command()
@@ -27,7 +27,10 @@ def test_performance(report: str = "performance_report.txt"):
 @app.command()
 def help(command: str = None):
     """Display help information for the CLI or a specific command."""
-    # Implementation for help command
+    if command:
+        typer.echo(typer.Typer.get_command(app, command).help)
+    else:
+        typer.echo(app.get_help())
 
 
 if __name__ == "__main__":
