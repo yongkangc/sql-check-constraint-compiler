@@ -21,7 +21,7 @@ def translate(sql: str):
 
 
 @app.command()
-def test_performance(report: str = "performance_report.txt"):
+def performance(report: str = "performance_report.txt"):
     """Run performance tests on the translated constraints."""
     perform_performance_test(report)
     typer.echo(f"Performance report generated: {report}")
