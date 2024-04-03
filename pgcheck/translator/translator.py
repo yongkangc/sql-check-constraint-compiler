@@ -51,9 +51,6 @@ class Translator():
         # constraint_operator = print_constraints.constraint_node.raw_expr.name[0].sval
         # constraint_rhs = str(print_constraints.constraint_node.raw_expr.rexpr.val.ival)
 
-        constraint_statement = RawStream()(print_constraints.constraint_node.raw_expr)
-        constraint_columns = list(set(print_constraints.constraint_columns))
-
         original_statement = RawStream()(root)
         DeleteCheckConstraints()(root)
         modified_statement = RawStream()(root)
@@ -63,8 +60,11 @@ class Translator():
             table_name+'_orig', original_statement.replace(table_name, table_name+'_orig'))
         self.execute_create_table(table_name, modified_statement)
 
-        self.translate_sql_template(
-            table_name, constraint_statement, constraint_columns)
+        constraint_columns = list(set(print_constraints.constraint_columns))
+        for constraint_node in print_constraints.constraint_nodes:
+            constraint_statement = RawStream()(constraint_node.raw_expr)
+            self.translate_sql_template(
+                table_name, constraint_statement, constraint_columns)
 
     def translate_sql_template(self, table_name, constraint_statement, constraint_columns):
 

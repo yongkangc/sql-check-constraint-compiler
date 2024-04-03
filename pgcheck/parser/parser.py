@@ -4,7 +4,7 @@ from pglast.visitors import Visitor, Delete
 class PrintCheckConstraints(Visitor):
     def __call__(self, node):
         self.createstatement_node = None
-        self.constraint_node = None
+        self.constraint_nodes = []
         self.constraint_columns = []
         super().__call__(node)
 
@@ -13,7 +13,7 @@ class PrintCheckConstraints(Visitor):
             self.createstatement_node = node
         if node.__class__.__name__ == "Constraint":
             if node.contype == enums.ConstrType.CONSTR_CHECK:
-                self.constraint_node = node
+                self.constraint_nodes.append(node)
         if node.__class__.__name__ == "ColumnRef":
             self.constraint_columns.append(node.fields[0].sval)
 

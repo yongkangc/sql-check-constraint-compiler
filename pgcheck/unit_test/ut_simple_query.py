@@ -5,12 +5,14 @@ from pgcheck.translator.translator import Translator
 
 def ut_simple_query():
     test_name = 'ut_simple_query'
-    result = True
+    result = False
+    test_1 = False
+    test_2 = False
 
     simple_query = """CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     name VARCHAR(50),
-    age INTEGER,
+    age INTEGER CHECK (age < 30),
     size INTEGER,
     CHECK (age > ANY(ARRAY[1, 2, 3]) AND size < 2.5));"""
     
@@ -21,14 +23,24 @@ def ut_simple_query():
     translator_obj.execute_pg(no_violation)
 
     try:
-        violation = "INSERT INTO users(name, age) VALUES('with violation', 1)"
+        violation = "INSERT INTO users(name, age) VALUES('with <30 violation', 40)"
+        translator_obj.execute_pg(violation)
+    except Exception as e:
+        if str(e).startswith('age_30 constraint violated'):
+            test_1 = True
+        else:
+            raise e
+        
+    try:
+        violation = "INSERT INTO users(name, age) VALUES('with array violation', 0)"
         translator_obj.execute_pg(violation)
     except Exception as e:
         if str(e).startswith('age_ANY_ARRAY_1_2_3_AND_size_2_5 constraint violated'):
-            result = True
+            test_2 = True
         else:
             raise e
 
+    result = test_1 and test_2
     if result:
         print(test_name, ' ok.')
     return test_name, result
