@@ -2,6 +2,25 @@
 
 SQL Check Constraint Compiler
 
+## Running the Application
+
+```bash
+python main.py
+```
+
+### CLI Commands
+
+```bash
+Usage: main.py [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  --help  Show this message and exit.
+  --translate TEXT  Translate existing CHECK constraints into triggers and
+                    stored functions.
+  --test_performance TEXT  Run performance tests on the translated constraints.
+
+```
+
 ## Setup
 
 1. Create Virtual Environment
