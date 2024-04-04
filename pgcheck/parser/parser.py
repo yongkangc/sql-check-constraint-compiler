@@ -96,7 +96,7 @@ class DeleteCheckConstraints(Visitor):
         # Check if the AlterTableStmt node contains only check constraints
         has_only_check_constraints = True
         for cmd in node.cmds:
-            if cmd.subtype in [enums.parsenodes.AlterTableType.AT_AddConstraint,
+            if cmd.subtype not in [enums.parsenodes.AlterTableType.AT_AddConstraint,
                                enums.parsenodes.AlterTableType.AT_DropConstraint]:
                 has_only_check_constraints = False
                 break
