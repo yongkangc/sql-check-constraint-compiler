@@ -96,8 +96,8 @@ class PerformanceEvaluator:
         with open(filepath, 'w') as file:
             file.write(report)
 
-        self.data.to_csv('untranslated.csv', index=False)
-        self.translated_data.to_csv('translated.csv', index=False)
+        self.data.to_csv('./untranslated.csv', index=False)
+        self.translated_data.to_csv('./translated.csv', index=False)
 
         return filepath
     
