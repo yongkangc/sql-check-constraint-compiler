@@ -100,7 +100,7 @@ class Translator():
                 
             elif node.statement_type == StatementType.ALTER and \
                 node.alter_action == AlterTableAction.DROP:
-                    self.remove_trigger(node.constraint_name)
+                    self.remove_trigger(node.constraint_name, table_name)
 
     def translate_sql_template(self, table_name, constraint_statement, constraint_columns, constraint_name):
 
@@ -139,11 +139,11 @@ class Translator():
         """
         self.execute_pg(trigger_sql)
         
-    def remove_trigger(self, constraint_name):
+    def remove_trigger(self, constraint_name, table_name):
         function_name = 'func_' + constraint_name
         trigger_name = 'trig_' + constraint_name
         
-        remove_trigger_sql = f'DROP TRIGGER IF EXISTS {trigger_name};'
+        remove_trigger_sql = f'DROP TRIGGER IF EXISTS {trigger_name} ON {table_name};'
         self.execute_pg(remove_trigger_sql)
         
         remove_function_sql = f'DROP FUNCTION IF EXISTS {function_name}();'
