@@ -1,11 +1,11 @@
 
         Performance Evaluation Report:
         
-        Total Time Used In Creating Table: 1.83 seconds
-        Total Execution Time For Insert Queries: 25.07 seconds
+        Total Time Used In Creating Table: 1.71 seconds
+        Total Execution Time For Insert Queries: 212.80 seconds
         Average Execution Time For Insert Queries: 0.03 seconds
 
-        Total Memory Used In Creating Table: 679936.0 bytes
-        Total Memory Usage For Insert Queries: -28672 bytes
-        Average Memory Usage For Insert Queries: -35.84 bytes
+        Total Memory Used In Creating Table: 514205.53846153844 bytes
+        Total Memory Usage For Insert Queries: 4096 bytes
+        Average Memory Usage For Insert Queries: 0.6301538461538462 bytes
         

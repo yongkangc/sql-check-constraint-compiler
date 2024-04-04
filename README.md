@@ -17,7 +17,7 @@ Options:
   --help  Show this message and exit.
   --translate TEXT  Translate existing CHECK constraints into triggers and
                     stored functions.
-  --test_performance TEXT  Run performance tests on the translated constraints.
+  --performance  Run performance tests on the last translated constraints.
 
 ```
 

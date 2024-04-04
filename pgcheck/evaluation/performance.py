@@ -5,7 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pgcheck.translator import perform_translation
 from pgcheck.translator.translator import Translator
-
+import csv
 
 class PerformanceEvaluator:
     def __init__(self):
@@ -33,11 +33,11 @@ class PerformanceEvaluator:
             create_end_time = time.time()
             create_end_memory = self.process.memory_info().rss
 
-            create_time = create_end_time - create_start_time
-            create_memory_usage = create_end_memory - create_start_memory
+            create_time = max(create_end_time - create_start_time, 0)
+            create_memory_usage = max(create_end_memory - create_start_memory, 0)
 
             for stmt in insert_stmt:
-                time.sleep(.1)
+                time.sleep(.2)
                 insert_start_time = time.time()
                 insert_start_memory = self.process.memory_info().rss
 
@@ -46,8 +46,8 @@ class PerformanceEvaluator:
                 insert_end_time = time.time()
                 insert_end_memory = self.process.memory_info().rss
 
-                insert_time = insert_end_time - insert_start_time
-                insert_memory_usage = insert_end_memory - insert_start_memory
+                insert_time = max(insert_end_time - insert_start_time, 0)
+                insert_memory_usage = max(insert_end_memory - insert_start_memory, 0)
                 result = {
                     'test': ''.join(name),
                     'create_table_time' : create_time,
@@ -96,10 +96,12 @@ class PerformanceEvaluator:
         with open(filepath, 'w') as file:
             file.write(report)
 
+        self.data.to_csv('untranslated.csv', index=False)
+        self.translated_data.to_csv('translated.csv', index=False)
+
         return filepath
     
-    def generate_dashboard(self):
-        n = 100
+    def generate_dashboard(self, n):
 
         def plot_create_table_time():
             plt.plot(list(range(int(len(self.data) / n))), self.data.loc[::n, 'create_table_time'], color='grey')
@@ -146,4 +148,6 @@ class PerformanceEvaluator:
         plot_insert_time()
         plot_create_table_memory()
         plot_insert_memory()
+
+        
 
