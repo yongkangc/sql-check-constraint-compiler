@@ -21,10 +21,10 @@ def translate(sql: str):
 
 
 @app.command()
-def performance(report: str = "performance_report.txt"):
+def performance():
     """Run performance tests on the translated constraints."""
-    perform_performance_test(report)
-    typer.echo(f"Performance report generated: {report}")
+    filepath, alt_filepath = perform_performance_test()
+    typer.echo(f"Performance reports generated: {filepath, alt_filepath}")
 
 
 @app.command()
